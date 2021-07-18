@@ -5,7 +5,6 @@ class User < ApplicationRecord
         :rememberable, :validatable, :recoverable, :trackable
   include DeviseTokenAuth::Concerns::User
 
-# railsのdevise_auth_token_userが持つprofile_imageカラムをmount_uploaderに指定
   mount_uploader :profile_image, ImageUploader
 
     validates :first_name, { presence: true, length: { maximum: 10 } }

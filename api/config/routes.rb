@@ -7,12 +7,20 @@ Rails.application.routes.draw do
       passwords: 'api/auth/passwords'
     }
 
-    resources :users, only: [:show] do
-      resources :folders, only: %i[create update destroy]
-      resources :comments, only: %i[create destroy]
+    namespace :auth do
+      resources :sessions, only: %i[index]
     end
 
-    resources :follows, only: %i[create destroy]
+    resources :users, only: %i[show] do
+      resources :folders, only: %i[create update destroy]
+      resources :comments, only: %i[create destroy]
+      member do
+        get :followings
+        get :followers
+      end
+    end
+
+    resources :follows, only: %i[follow unfollow]
 
     resources :recipes, only: [:show]
 
